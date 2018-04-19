@@ -1,5 +1,20 @@
+addons:
+  postgresql: "10"
+  apt:
+    packages:
+    - postgresql-10
+    - postgresql-client-10
+env:
+  global:
+  - PGPORT=5433
+dist: trusty
 language: ruby
+before_script:
+  - cp config/database.yml.travis config/database.yml
+  - psql -c 'create database "travis_ci_test";' -U travis
 rvm:
   - 2.5.1
 before_install:
   - gem install bundler
+script:
+  - bundle exec rails db:migrate RAILS_ENV=test
