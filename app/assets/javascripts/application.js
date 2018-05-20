@@ -30,7 +30,7 @@
 
 $(document).ready(function() {
     /** Constant div card */
-    const DIV_CARD = 'div.card';
+    var DIV_CARD = 'div.card';
 
     /** Initialize tooltips */
     $('[data-toggle="tooltip"]').tooltip();
@@ -42,7 +42,7 @@ $(document).ready(function() {
 
     /** Function for remove card */
     $('[data-toggle="card-remove"]').on('click', function(e) {
-        let $card = $(this).closest(DIV_CARD);
+        var $card = $(this).closest(DIV_CARD);
 
         $card.remove();
 
@@ -52,7 +52,7 @@ $(document).ready(function() {
 
     /** Function for collapse card */
     $('[data-toggle="card-collapse"]').on('click', function(e) {
-        let $card = $(this).closest(DIV_CARD);
+        var $card = $(this).closest(DIV_CARD);
 
         $card.toggleClass('card-collapsed');
 
@@ -62,7 +62,7 @@ $(document).ready(function() {
 
     /** Function for fullscreen card */
     $('[data-toggle="card-fullscreen"]').on('click', function(e) {
-        let $card = $(this).closest(DIV_CARD);
+        var $card = $(this).closest(DIV_CARD);
 
         $card.toggleClass('card-fullscreen').removeClass('card-collapsed');
 
@@ -72,7 +72,7 @@ $(document).ready(function() {
 
     /**  */
     if ($('[data-sparkline]').length) {
-        let generateSparkline = function($elem, data, params) {
+        var generateSparkline = function($elem, data, params) {
             $elem.sparkline(data, {
                 type: $elem.attr('data-sparkline-type'),
                 height: '100%',
@@ -89,7 +89,7 @@ $(document).ready(function() {
         };
 
         $('[data-sparkline]').each(function() {
-            let $chart = $(this);
+            var $chart = $(this);
 
             generateSparkline($chart, JSON.parse($chart.attr('data-sparkline')), {
                 color: $chart.attr('data-sparkline-color')
@@ -100,7 +100,7 @@ $(document).ready(function() {
     /**  */
     if ($('.chart-circle').length) {
         $('.chart-circle').each(function() {
-            let $this = $(this);
+            var $this = $(this);
 
             $this.circleProgress({
                 fill: {
