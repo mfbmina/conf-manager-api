@@ -10,6 +10,14 @@ module ConfManager
   class Application < Rails::Application
     config.api_only = true
 
+    # Load environment file
+    config.before_configuration do
+      env_file = File.join(Rails.root, 'config', '.env.yml')
+      YAML.load(File.open(env_file)).each do |key, value|
+        ENV[key.to_s] = value.to_s
+      end if File.exists?(env_file)
+    end
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 

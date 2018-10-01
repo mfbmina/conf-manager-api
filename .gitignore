@@ -44,3 +44,5 @@ bower.json
 .byebug_history
 
 .idea
+# Environment file
+/config/.env.yml
