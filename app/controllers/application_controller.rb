@@ -1,4 +1,4 @@
-class ApplicationController < ActionController::Base
+class ApplicationController < ActionController::API
   def error
     render status_code.to_s, status: status_code
   end
