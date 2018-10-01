@@ -26,7 +26,7 @@ deploy:
   provider: heroku
   api_key:
     secure: AnoE1tz1HVy+dZZDjuFCVzjgI30fzZtd6WZzf0r3Q5FYPKqVzuNnW0qQ3XQRBCJIXmJmoY5LR92JmuRLRZ+Rg3XDYvfnFiBpfolZ3wlIoknGTdQiOkW1z9xGJYp74J6MW/3OfjD+Xd8grf2JZO4/Hjk3vlIG+OT1JGez7Yx//DFkkZinn4ncrRZx1fHWSD+Nju2PExIBa5dtHt6oeObQnP3ak+rl/AkdZWrGgNkn7q+yhLEinacG5VebllVe+DmHzKAweGfuGRwTboqD932n1pUNooXFiMhNX61oErXrLiTHDnXtt8+mMTzFaXms2G81vCm43tLczULNOrNQ+WL9ZXA2gOr9YcKW0DR789832Mdna35sBPp9faViy/EoI1KpFcGSmKy18KTe8cxFedhKRPuyyN9ZMaMJOhkyPpZ0nJx0igQkHZ24jmYBIIY5Dqz84I74dmGoFs51RQxggzuMyY5LqB4+RbRe5s59Wbi1sBcEAv4uLYNaMoQfu0Q1WoiUPAybwbGRGY7CqpyjHoJOTkUGK6bP8CwCeJGNV9Z8AIEiWTAhjMpywIHT+AGGyvysdZPt/TqVJMJgoO4qjJ6fw9NBkEDwmLwa7fckq5VFheY0PpSF/fe4/VBEKhFv7XCuZ7WsG2XcnWK5S0ss9wEZBs9qgbR0V5CpZ/H1ycZegDg=
-  app: hello-world-portal
+  app: hello-world-conf-api
   on:
     repo: hello-world-conf/conf-manager-api
 notifications:
