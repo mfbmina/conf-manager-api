@@ -18,7 +18,9 @@ rvm:
 before_install:
 - gem install bundler
 script:
+- bundle exec rails db:setup
 - bundle exec rails db:migrate RAILS_ENV=test
+- bundle exec rspec
 branches:
   only:
     - "master"
@@ -29,6 +31,11 @@ deploy:
   app: hello-world-conf-api
   on:
     repo: hello-world-conf/conf-manager-api
-notifications:
-  slack:
-    secure: VWDWQ8JEZumMu/c75ROQZjEueiA3iPnaMkErQR2j1PuF/ls5rR5GlPIMdVSehshjZKtH784CMTVKs8EVdvegYnkK2iABZ6c8U10pxMsR/HB7qS09T13E+/vIEJVNI1JAG0q13bW9dVxwSCm9gBIm9rHyNNN1IXPS5IZRFOux8QKzFmcj8YyzNY2VaXCR0yDZOUBm029dURzokQjqoG0yHGjs3VF+G1/x8jWLPnyuVEpB2BkXJ8YUk2eD7DDKXCtDyVv90kGfDVaEtg6zAanDeONBLJukuueTYUAS/SdLXhHZvey+gbeqt1RYduT3hq7HzulOiiJdqXXHCR7vOS0HmTIoaVS/q+A+VORdjrO2eFfS5QV7uTjbIKLFkp8kGABPrRRw+EkQ3TjfIPsGdo+O4uY4GOv/JM82JgYrqHEvSdThmXEeguJKmAyv48Yc+IWiWTGRnLZOy45N1NzOWuzZ/1nwMWnRsS0EnosG5hXPM204w2/fJSkqZ/KJbqPT2stpna+gpIzbEp8l9yOPsQp5QMts4KXUxlPuIL8Dv0TRcnt1vSjFx94HyxyfxGLPhDD/5LuYi/01yk7hMShcTw+DaPdQ4pS0iuiUX1T3lR1jr0M+pKjDcc021Faw+RoC98LieAu+elPjyBIgqkyYUjoEizr+gtuarWx0gaRHy7lbEKw=
+  run:
+    - "rails db:migrate"
+after_success:
+  - chmod +x discord.sh
+  - ./discord.sh success $WEBHOOK_URL
+after_failure:
+  - chmod +x discord.sh
+  - ./discord.sh failure $WEBHOOK_URL

@@ -60,4 +60,6 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.debug_exception_response_format = :api
+
+  Rails.application.routes.default_url_options[:host] = 'localhost:3000'
 end
