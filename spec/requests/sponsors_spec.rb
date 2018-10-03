@@ -2,16 +2,16 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Speakers endpoint', type: :request do
-  let!(:speakers) { create_list(:speaker, 10, :with_avatar) }
+RSpec.describe 'Sponsors endpoint', type: :request do
+  let!(:speakers) { create_list(:sponsor, 10, :with_logo) }
 
-  describe 'GET /speakers' do
+  describe 'GET /sponsors' do
     # make HTTP get request before each example
-    before { get '/speakers' }
+    before { get '/sponsors' }
 
-    it 'returns 10 speakers' do
+    it 'returns 10 sponsors' do
       expect(json).not_to be_empty
-      expect(json['speakers'].size).to eq(10)
+      expect(json['sponsors'].size).to eq(10)
     end
 
     it 'returns status code 200' do
@@ -19,22 +19,22 @@ RSpec.describe 'Speakers endpoint', type: :request do
     end
   end
 
-  describe 'POST /speakers' do
+  describe 'POST /sponsors' do
     # valid payload
     let(:valid_attributes) do
-      { name: 'Rafael Almeida',
-        email: 'rafael.almeida@xing.com',
-        company: 'XING',
-        avatar: fixture_file_upload(
+      { name: 'XING',
+        website: 'https://xing.com',
+        tier: 1,
+        logo: fixture_file_upload(
           Rails.root.join('spec', 'support', 'assets', 'test-avatar.png'), 'image/png'
         ) }
     end
 
     context 'when the request is valid' do
-      before { post '/speakers', params: valid_attributes }
+      before { post '/sponsors', params: valid_attributes }
 
-      it 'creates a speaker' do
-        expect(json['speaker']['name']).to eq('Rafael Almeida')
+      it 'creates a sponsor' do
+        expect(json['sponsor']['name']).to eq('XING')
       end
 
       it 'returns status code 201' do
@@ -43,7 +43,7 @@ RSpec.describe 'Speakers endpoint', type: :request do
     end
 
     context 'when the request is invalid' do
-      before { post '/speakers', params: { name: 'Foobar' } }
+      before { post '/sponsors', params: { name: 'Foobar' } }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -51,7 +51,7 @@ RSpec.describe 'Speakers endpoint', type: :request do
 
       it 'returns a validation failure message' do
         expect(response.body)
-          .to match(/Validation failed: Email can't be blank, Company can't be blank/)
+          .to match(/Validation failed: Website can't be blank, Tier can't be blank/)
       end
     end
   end

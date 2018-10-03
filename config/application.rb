@@ -10,6 +10,8 @@ module ConfManager
   class Application < Rails::Application
     config.api_only = true
 
+    config.generators.test_framework :rspec
+
     # Load environment file
     config.before_configuration do
       env_file = File.join(Rails.root, 'config', '.env.yml')
