@@ -1,4 +1,5 @@
 class SponsorsController < APIController
+  skip_before_action :authorize_request, only: :index
   before_action :set_sponsor, only: %i[show update destroy]
 
   def index

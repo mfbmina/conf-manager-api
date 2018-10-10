@@ -3,7 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Speakers endpoint', type: :request do
+  let(:user) { create(:user) }
   let!(:speakers) { create_list(:speaker, 10, :with_avatar) }
+  let(:headers) { valid_headers }
 
   describe 'GET /speakers' do
     # make HTTP get request before each example
@@ -30,8 +32,13 @@ RSpec.describe 'Speakers endpoint', type: :request do
         ) }
     end
 
+    # invalid payload
+    let(:invalid_attributes) do
+      { name: 'Foobar' }.to_json
+    end
+
     context 'when the request is valid' do
-      before { post '/speakers', params: valid_attributes }
+      before { post '/speakers', params: valid_attributes, headers: headers }
 
       it 'creates a speaker' do
         expect(json['speaker']['name']).to eq('Rafael Almeida')
@@ -43,7 +50,7 @@ RSpec.describe 'Speakers endpoint', type: :request do
     end
 
     context 'when the request is invalid' do
-      before { post '/speakers', params: { name: 'Foobar' } }
+      before { post '/speakers', params: invalid_attributes, headers: headers }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)

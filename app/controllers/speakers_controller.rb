@@ -1,4 +1,5 @@
 class SpeakersController < APIController
+  skip_before_action :authorize_request, only: :index
   before_action :set_speaker, only: %i[show update destroy]
 
   def index

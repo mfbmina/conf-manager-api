@@ -3,7 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Sponsors endpoint', type: :request do
+  let(:user) { create(:user) }
   let!(:speakers) { create_list(:sponsor, 10, :with_logo) }
+  let(:headers) { valid_headers }
 
   describe 'GET /sponsors' do
     # make HTTP get request before each example
@@ -30,8 +32,13 @@ RSpec.describe 'Sponsors endpoint', type: :request do
         ) }
     end
 
+    # invalid payload
+    let(:invalid_attributes) do
+      { name: 'Foobar' }.to_json
+    end
+
     context 'when the request is valid' do
-      before { post '/sponsors', params: valid_attributes }
+      before { post '/sponsors', params: valid_attributes, headers: headers }
 
       it 'creates a sponsor' do
         expect(json['sponsor']['name']).to eq('XING')
@@ -43,7 +50,7 @@ RSpec.describe 'Sponsors endpoint', type: :request do
     end
 
     context 'when the request is invalid' do
-      before { post '/sponsors', params: { name: 'Foobar' } }
+      before { post '/sponsors', params: invalid_attributes, headers: headers }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
