@@ -2,7 +2,7 @@ class SpeakersController < APIController
   before_action :set_speaker, only: %i[show update destroy]
 
   def index
-    @speakers = Speaker.all
+    @speakers = Speaker.with_attached_avatar
     json_response(@speakers)
   end
 

@@ -2,7 +2,7 @@ class SponsorsController < APIController
   before_action :set_sponsor, only: %i[show update destroy]
 
   def index
-    @sponsors = Sponsor.all
+    @sponsors = Sponsor.with_attached_logo
     json_response(@sponsors)
   end
 
